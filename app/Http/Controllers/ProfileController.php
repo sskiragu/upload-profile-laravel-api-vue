@@ -57,7 +57,7 @@ class ProfileController extends Controller
 
         // If the profile exists and belongs to the authenticated user, return the data.
         if ($profile && $profile->id === $user->id) {
-            return response()->json(['message' => 'Profile retrieved successfully', 'profile' => $profile->photo]);
+            return response()->json(['message' => 'Profile retrieved successfully', 'profile' => $profile->photo, 'user' => $user]);
         }
 
         // If the profile does not exist or does not belong to the authenticated user, return an error response.
@@ -79,7 +79,7 @@ class ProfileController extends Controller
 
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $file = $request->file('file');
-            $encodedFile = $request->input('file');
+            // $encodedFile = $request->input('file');
 
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/profiles', $filename);
